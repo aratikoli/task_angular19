@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Status</th>
+    <th>Created</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let task of tasks()">
+    <td>{{ task.title }}</td>
+    <td>{{ task.status }}</td>
+    <td>{{ task.createdAt | date: 'shortDate' }}</td>
+    <td>
+      <button (click)="store.delete(task.id)">Delete</button>
+    </td>
+  </tr>
+</table>

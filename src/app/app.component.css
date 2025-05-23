@@ -1,0 +1,15 @@
+.app-title {
+  text-align: center;
+  font-size: 24px;
+  margin: 16px 0;
+}
+
+.task-container {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

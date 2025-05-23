@@ -1,59 +1,98 @@
-# TaskAngular18
+# TaskAngular19
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.5.
+A reactive task management application built using Angular 19, Standalone Components, NgRx Signals Store, and Chart.js via ng2-charts
 
-## Development server
+# Project Structure
+This application is organized using a feature-based module structure with standalone components for maximum modularity and simplicity.
 
-To start a local development server, run:
+# Features
 
-```bash
-ng serve
-```
+task-form/ – Form to create new tasks
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+task-table/ – Table to list and manage tasks
 
-## Code scaffolding
+task-chart/ – Chart visualization of task data
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+store/task.store.ts – Central reactive state store using @ngrx/signals
 
-```bash
-ng generate component component-name
-```
+services/task-compute.service.ts – Contains computed signals to derive task statistics
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Core
 
-```bash
-ng generate --help
-```
+core/models/task.model.ts – Contains the shared Task interface
 
-## Building
+# Signal Store Design
 
-To build the project run:
+We used the new @ngrx/signals API for state management. Here's how:
 
-```bash
-ng build
-```
+State: Stored using withState() for a list of Task objects.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Methods: Encapsulated with withMethods() for add, update, and delete.
 
-## Running unit tests
+Patch Strategy: patchState() updates state immutably for simplicity and clarity.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Singleton Instance: The store is exported directly and used without injection.
 
-```bash
-ng test
-```
+This design enables reactive updates across the app with minimal boilerplate.
 
-## Running end-to-end tests
+# Patterns Used
 
-For end-to-end (e2e) testing, run:
+ computed()
 
-```bash
-ng e2e
-```
+Used in TaskComputeService to derive:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Status counts (Pending, In Progress, Completed)
 
-## Additional Resources
+Daily task creation trends
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+signal()
+
+Used in chart components to:
+
+Reactively bind chart data to state
+
+Rerender automatically on state change
+
+# Trade-offs & Alternatives
+
+Design Decision
+
+Alternatives
+
+Rationale
+
+@ngrx/signals store
+
+Traditional NgRx, plain RxJS signals
+
+computed() in services
+
+Inline logic in components
+
+Promotes separation of concerns and testability
+
+Standalone components
+
+Angular NgModules
+
+Reduces boilerplate and improves tree-shakability
+
+No signalEffect() used
+
+Kept app simple and purely reactive via computed values
+
+# Libraries Used
+
+Angular 19
+
+@ngrx/signals
+
+Chart.js 4.4.9
+
+ng2-charts 8.0.0
+
+Note: Ensure chart types (e.g. 'bar', 'pie') and controllers are registered correctly in chart.ts setup if required.
+
+# Summary
+
+This project demonstrates how to build a reactive, modular, and modern Angular application using Signals as the core state management approach. With a clean separation of concerns, it is designed to be easy to extend and maintain.
